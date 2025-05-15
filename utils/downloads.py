@@ -1,6 +1,6 @@
 # Ultralytics 🚀 AGPL-3.0 License - https://ultralytics.com/license
 
-"""Download utils."""
+"""Download engines.yolov5.utils."""
 
 import logging
 import subprocess
@@ -64,7 +64,7 @@ def safe_download(file, url, url2=None, min_bytes=1e0, error_msg=""):
 
     Removes incomplete downloads.
     """
-    from utils.general import LOGGER
+    from engines.yolov5.utils.general import LOGGER
 
     file = Path(file)
     assert_msg = f"Downloaded file '{file}' does not exist or size is < min_bytes={min_bytes}"
@@ -90,7 +90,7 @@ def attempt_download(file, repo="ultralytics/yolov5", release="v7.0"):
     """Downloads a file from GitHub release assets or via direct URL if not found locally, supporting backup
     versions.
     """
-    from utils.general import LOGGER
+    from engines.yolov5.utils.general import LOGGER
 
     def github_assets(repository, version="latest"):
         """Fetches GitHub repository release tag and asset names using the GitHub API."""

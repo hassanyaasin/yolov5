@@ -1,6 +1,6 @@
 # Ultralytics 🚀 AGPL-3.0 License - https://ultralytics.com/license
 
-"""Logging utils."""
+"""Logging engines.yolov5.utils."""
 
 import json
 import os
@@ -10,11 +10,11 @@ from pathlib import Path
 import pkg_resources as pkg
 import torch
 
-from utils.general import LOGGER, colorstr, cv2
-from utils.loggers.clearml.clearml_utils import ClearmlLogger
-from utils.loggers.wandb.wandb_utils import WandbLogger
-from utils.plots import plot_images, plot_labels, plot_results
-from utils.torch_utils import de_parallel
+from engines.yolov5.utils.general import LOGGER, colorstr, cv2
+from engines.yolov5.utils.loggers.clearml.clearml_utils import ClearmlLogger
+from engines.yolov5.utils.loggers.wandb.wandb_utils import WandbLogger
+from engines.yolov5.utils.plots import plot_images, plot_labels, plot_results
+from engines.yolov5.utils.torch_utils import de_parallel
 
 LOGGERS = ("csv", "tb", "wandb", "clearml", "comet")  # *.csv, TensorBoard, Weights & Biases, ClearML
 RANK = int(os.getenv("RANK", -1))
@@ -54,7 +54,7 @@ try:
         import comet_ml
 
         assert hasattr(comet_ml, "__version__")  # verify package import not local dir
-        from utils.loggers.comet import CometLogger
+        from engines.yolov5.utils.loggers.comet import CometLogger
 
     else:
         comet_ml = None
@@ -351,7 +351,7 @@ class Loggers:
 class GenericLogger:
     """
     YOLOv5 General purpose logger for non-task specific logging
-    Usage: from utils.loggers import GenericLogger; logger = GenericLogger(...).
+    Usage: from engines.yolov5.utils.loggers import GenericLogger; logger = GenericLogger(...).
 
     Arguments:
         opt:             Run arguments

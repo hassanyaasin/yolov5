@@ -1,14 +1,14 @@
 # Ultralytics 🚀 AGPL-3.0 License - https://ultralytics.com/license
 
-"""Auto-batch utils."""
+"""Auto-batch engines.yolov5.utils."""
 
 from copy import deepcopy
 
 import numpy as np
 import torch
 
-from utils.general import LOGGER, colorstr
-from utils.torch_utils import profile
+from engines.yolov5.utils.general import LOGGER, colorstr
+from engines.yolov5.utils.torch_utils import profile
 
 
 def check_train_batch_size(model, imgsz=640, amp=True):
@@ -21,7 +21,7 @@ def autobatch(model, imgsz=640, fraction=0.8, batch_size=16):
     """Estimates optimal YOLOv5 batch size using `fraction` of CUDA memory."""
     # Usage:
     #     import torch
-    #     from utils.autobatch import autobatch
+    #     from engines.yolov5.utils.autobatch import autobatch
     #     model = torch.hub.load('ultralytics/yolov5', 'yolov5s', autoshape=False)
     #     print(autobatch(model))
 

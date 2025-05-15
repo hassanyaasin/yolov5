@@ -1,6 +1,6 @@
 # Ultralytics 🚀 AGPL-3.0 License - https://ultralytics.com/license
 
-"""Callback utils."""
+"""Callback engines.yolov5.utils."""
 
 import threading
 

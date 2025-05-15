@@ -1,6 +1,6 @@
 # Ultralytics 🚀 AGPL-3.0 License - https://ultralytics.com/license
 
-"""Plotting utils."""
+"""Plotting engines.yolov5.utils."""
 
 import contextlib
 import math
@@ -20,8 +20,8 @@ from scipy.ndimage.filters import gaussian_filter1d
 from ultralytics.utils.plotting import Annotator
 
 from utils import TryExcept, threaded
-from utils.general import LOGGER, clip_boxes, increment_path, xywh2xyxy, xyxy2xywh
-from utils.metrics import fitness
+from engines.yolov5.utils.general import LOGGER, clip_boxes, increment_path, xywh2xyxy, xyxy2xywh
+from engines.yolov5.utils.metrics import fitness
 
 # Settings
 RANK = int(os.getenv("RANK", -1))
@@ -74,7 +74,7 @@ class Colors:
         return tuple(int(h[1 + i : 1 + i + 2], 16) for i in (0, 2, 4))
 
 
-colors = Colors()  # create instance for 'from utils.plots import colors'
+colors = Colors()  # create instance for 'from engines.yolov5.utils.plots import colors'
 
 
 def feature_visualization(x, module_type, stage, n=32, save_dir=Path("runs/detect/exp")):
@@ -236,7 +236,7 @@ def plot_val_txt():
     Plots 2D and 1D histograms of bounding box centers from 'val.txt' using matplotlib, saving as 'hist2d.png' and
     'hist1d.png'.
 
-    Example: from utils.plots import *; plot_val()
+    Example: from engines.yolov5.utils.plots import *; plot_val()
     """
     x = np.loadtxt("val.txt", dtype=np.float32)
     box = xyxy2xywh(x[:, :4])
@@ -257,7 +257,7 @@ def plot_targets_txt():
     """
     Plots histograms of object detection targets from 'targets.txt', saving the figure as 'targets.jpg'.
 
-    Example: from utils.plots import *; plot_targets_txt()
+    Example: from engines.yolov5.utils.plots import *; plot_targets_txt()
     """
     x = np.loadtxt("targets.txt", dtype=np.float32).T
     s = ["x targets", "y targets", "width targets", "height targets"]
@@ -275,7 +275,7 @@ def plot_val_study(file="", dir="", x=None):
     Plots validation study results from 'study*.txt' files in a directory or a specific file, comparing model
     performance and speed.
 
-    Example: from utils.plots import *; plot_val_study()
+    Example: from engines.yolov5.utils.plots import *; plot_val_study()
     """
     save_dir = Path(file).parent if file else Path(dir)
     plot2 = False  # plot additional results
@@ -373,7 +373,7 @@ def plot_labels(labels, names=(), save_dir=Path("")):
 
 def imshow_cls(im, labels=None, pred=None, names=None, nmax=25, verbose=False, f=Path("images.jpg")):
     """Displays a grid of images with optional labels and predictions, saving to a file."""
-    from utils.augmentations import denormalize
+    from engines.yolov5.utils.augmentations import denormalize
 
     names = names or [f"class{i}" for i in range(1000)]
     blocks = torch.chunk(
@@ -405,7 +405,7 @@ def plot_evolve(evolve_csv="path/to/evolve.csv"):
     """
     Plots hyperparameter evolution results from a given CSV, saving the plot and displaying best results.
 
-    Example: from utils.plots import *; plot_evolve()
+    Example: from engines.yolov5.utils.plots import *; plot_evolve()
     """
     evolve_csv = Path(evolve_csv)
     data = pd.read_csv(evolve_csv)
@@ -436,7 +436,7 @@ def plot_results(file="path/to/results.csv", dir=""):
     """
     Plots training results from a 'results.csv' file; accepts file path and directory as arguments.
 
-    Example: from utils.plots import *; plot_results('path/to/results.csv')
+    Example: from engines.yolov5.utils.plots import *; plot_results('path/to/results.csv')
     """
     save_dir = Path(file).parent if file else Path(dir)
     fig, ax = plt.subplots(2, 5, figsize=(12, 6), tight_layout=True)
@@ -467,7 +467,7 @@ def profile_idetection(start=0, stop=0, labels=(), save_dir=""):
     """
     Plots per-image iDetection logs, comparing metrics like storage and performance over time.
 
-    Example: from utils.plots import *; profile_idetection()
+    Example: from engines.yolov5.utils.plots import *; profile_idetection()
     """
     ax = plt.subplots(2, 4, figsize=(12, 6), tight_layout=True)[1].ravel()
     s = ["Images", "Free Storage (GB)", "RAM Usage (GB)", "Battery", "dt_raw (ms)", "dt_smooth (ms)", "real-world FPS"]
